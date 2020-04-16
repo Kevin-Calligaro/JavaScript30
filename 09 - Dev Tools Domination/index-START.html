@@ -18,28 +18,61 @@
     }
 
     // Regular
+    console.log('hello');
 
     // Interpolated
+    console.log(`Hello I am a`);
 
     // Styled
+    console.log('%c I am Kevin', 'font-size: 40px;');
 
     // warning!
+    console.warn('Oh noooo');
 
     // Error :|
+    console.error('bad choice');
 
     // Info
+    console.info('Crocodiles eat 3-4 people per year');
 
     // Testing
+    console.assert(1 === 2, 'It\'s wrong')
+
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'That is wrong'); // apparaît ssi c'est faux
 
     // clearing
+    console.clear(); // nettoie la console
 
     // Viewing DOM Elements
+    console.dir(p); // donne toute les propriété et methode de l'élément
 
     // Grouping together
+    console.clear();
+
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`); // ou groupCollapsed pour que l'onglet soit fermé
+      console.log(`this is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age *7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+
+    })
 
     // counting
+    console.count('word');
 
     // timing
+    console.time('fetching data');
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`); // ou groupCollapsed pour que l'onglet soit fermé
+      console.log(`this is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age *7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    })
+      console.timeEnd('fetching data');
+
+    // Table
+    console.table(dogs);
 
   </script>
 </body>
