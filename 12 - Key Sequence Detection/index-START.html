@@ -7,6 +7,21 @@
 </head>
 <body>
 <script>
+  const pressed = [];
+  const secretCode = 'good';
+
+  window.addEventListener('keyup', (e) => {
+    // Ajoute la touche enfoncé à la variable pressed
+    pressed.push(e.key);
+    // Selectionne seulement 7 caractère comme pour krieger en partant de la fin
+    pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+    // Regarde si le code secret est dans l'array
+    if (pressed.join('').includes(secretCode)) {
+      console.log('Your awsome');
+      cornify_add();
+    }
+    console.log(pressed);
+  })
 </script>
 </body>
 </html>
