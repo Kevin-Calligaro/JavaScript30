@@ -28,8 +28,56 @@
 <script>
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  // lorsque la page se reload, on check Si des items son dans la mémoire local
+      // si oui je les parse sinon empty array
+  const items = JSON.parse(localStorage.getItem('items')) || [];
 
+  function addItem(e) {
+    //Empeche la page de se recharger
+    e.preventDefault();
+    // récupération de la valeur submit
+    const text = this.querySelector('[name=item]').value;
+    // enregistre la valeur dans une variable objet
+    const item = {
+      // Equivaut à text: text, (grâce a ES6)
+      text,
+      done: false
+    };
+
+    items.push(item);
+    populateList(items, itemsList)
+    // Pour garder les donnés en les envoie dans le local storage sous format JSON pour qu'il puisse le
+    // transformer en string
+    localStorage.setItem('items', JSON.stringify(items));
+    // supprime  ce qui a était submit
+    this.reset();
+    console.table(items);
+  }
+  // Création d'un item sur la liste qu'on stock dans le local storage
+  function populateList(plates = [], platesList) {
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+        <li>
+          <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''}/>
+          <label for="item${i}"> ${plate.text}</label>
+        </li>`;
+    }).join('');
+  }
+
+  // Garder le check or not
+  function toggleDone(e){
+    if(!e.target.matches('input')) return;
+    const el = e.target;
+    const index = el.dataset.index
+    items[index].done = !items[index].done;
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList)
+
+  }
+
+  addItems.addEventListener('submit', addItem);
+  itemsList.addEventListener('click', toggleDone)
+  populateList(items, itemsList)
 </script>
 
 
