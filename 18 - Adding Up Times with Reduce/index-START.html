@@ -182,6 +182,33 @@
     </li>
   </ul>
 <script>
+  // utilisation de reduce !
+  // récupère le tout dans un node donc transform en array grâce à array.from
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+  console.log(timeNodes);
+  const seconds = timeNodes
+    .map(node => node.dataset.time)
+    .map(timeCode => {
+      // Récuupère les minutes et secondes (avec ES6)
+      const [mins, secs] = timeCode.split(':').map(parseFloat);
+      return (mins * 60) + secs;
+    })
+    .reduce((total, vidSeconds) => total + vidSeconds);
+
+    // calcul du temps restant
+    let secondesLeft = seconds;
+    // d'abord les heures
+    const hours = Math.floor(secondesLeft / 3600);
+    // on récupère les secondes restantes grâce à % et on les remet dans la const secondesLeft
+    secondesLeft = secondesLeft % 3600;
+
+    // on récupère les minutes
+    const mins = Math.floor(secondesLeft / 60);
+    // on récupère les secondes restantes grâce à % et on les remet dans la const secondesLeft
+    secondesLeft = secondesLeft % 60;
+
+    console.log(hours, mins, secondesLeft);
+
 </script>
 </body>
 </html>
